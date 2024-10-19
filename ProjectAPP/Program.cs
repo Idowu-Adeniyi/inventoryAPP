@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using ProjectAPP.Data;
 using ProjectAPP.Interfaces;
 using ProjectAPP.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 /*
 using CoreEntityFramework.Controllers;
 using CoreEntityFramework.Interfaces;
@@ -34,6 +36,15 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
 
 // Added swagger files
 builder.Services.AddControllers();
@@ -69,6 +80,26 @@ else
     app.UseHsts();
 }
 
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+// Enable CORS
+app.UseCors("AllowAll");
+app.UseCors("AllowAllOrigins");
+
+
+app.UseAuthorization(); // Ensure authorization is set if needed
+
+app.MapControllers(); // Map your API controllers
+
+
+
+
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -80,5 +111,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+
 
 app.Run();
