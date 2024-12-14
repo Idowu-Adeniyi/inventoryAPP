@@ -238,7 +238,7 @@ namespace ProjectAPP.Data.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("ProjectAPP.Models.Item", b =>
@@ -268,7 +268,7 @@ namespace ProjectAPP.Data.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("ProjectAPP.Models.Supplier", b =>
@@ -289,7 +289,7 @@ namespace ProjectAPP.Data.Migrations
 
                     b.HasKey("SupplierId");
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Suppliers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
